@@ -53,6 +53,6 @@ Message: ${message}
 let port = process.env.PORT || 3001
 
 app.listen(port, () => {
-    alert(`Application listening on port ${port}!`);
+    console.log(`Application listening on port ${port}!`);
 });
 
