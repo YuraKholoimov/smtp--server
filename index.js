@@ -51,7 +51,7 @@ Message: ${message}
     res.send({message: req.body});
 });
 
-let port = process.env.PORT || 3001
+let port = process.env.PORT || "http://localhost:3001/"
 
 app.listen(port, () => {
     console.log('Application listening on port 3001!');
