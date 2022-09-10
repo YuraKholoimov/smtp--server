@@ -16,7 +16,7 @@ app.use(cors());
 let smtp_login = process.env.SMPT_LOGIN || "---";
 let smtp_pass = process.env.SMTP_PASS || "---";
 
-// create reusable transporter object using the default SMTP transport
+
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -53,6 +53,6 @@ Message: ${message}
 let port = process.env.PORT || 3001
 
 app.listen(port, () => {
-    console.log(`Application listening on port ${port}!`);
+    alert(`Application listening on port ${port}!`);
 });
 
