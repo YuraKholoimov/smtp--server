@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.use(cors());
-
+app.options('*', cors());
 
 
 let smtp_login = process.env.SMPT_LOGIN || "---";
@@ -32,11 +32,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/sendMail', async (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-
-    const {name, email, phone, message} = req.body
+       const {name, email, phone, message} = req.body
 
     let info = await transporter.sendMail({
         from: `${email}`, // sender address
@@ -56,7 +52,7 @@ Message: ${message}
     res.send({message: req.body});
 });
 
-let port = process.env.PORT || "http://localhost:3000/"
+let port = process.env.PORT || "http://localhost:3001/"
 
 app.listen(port, () => {
     console.log(`Application listening on port ${port}!`);
