@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
+
 let smtp_login = process.env.SMPT_LOGIN || "---";
 let smtp_pass = process.env.SMTP_PASS || "---";
 
@@ -31,6 +32,10 @@ app.get('/', (req, res) => {
 });
 
 app.post('/sendMail', async (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
     const {name, email, phone, message} = req.body
 
     let info = await transporter.sendMail({
