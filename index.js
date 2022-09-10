@@ -13,13 +13,12 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.all('*', function(req, res, next) {
+app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
 let smtp_login = process.env.SMPT_LOGIN || "---";
 let smtp_pass = process.env.SMTP_PASS || "---";
 
@@ -57,7 +56,7 @@ Message: ${message}
     res.send({message: req.body});
 });
 
-let port = process.env.PORT || "http://localhost:3001/"
+let port = process.env.PORT || 3001
 
 app.listen(port, () => {
     console.log(`Application listening on port ${port}!`);
