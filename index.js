@@ -54,6 +54,6 @@ Message: ${message}
 let port = process.env.PORT || "http://localhost:3000/"
 
 app.listen(port, () => {
-    console.log('Application listening on port 3001!');
+    console.log(`Application listening on port ${port}!`);
 });
 
