@@ -13,6 +13,18 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
+
+let allowlist = ['http://localhost:3000/']
+let corsOptionsDelegate = function (req, callback) {
+    let corsOptions;
+    if (allowlist.indexOf(req.header('Origin')) !== -1) {
+        corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+    } else {
+        corsOptions = { origin: false } // disable CORS for this request
+    }
+    callback(null, corsOptions) // callback expects two parameters: error and options
+}
+
 let smtp_login = process.env.SMPT_LOGIN || "---";
 let smtp_pass = process.env.SMTP_PASS || "---";
 
@@ -29,7 +41,7 @@ app.get('/', (req, res) => {
     res.send({message: 'Hello WWW!'});
 });
 
-app.post('/sendMail', async (req, res) => {
+app.post('/sendMail', cors(corsOptionsDelegate), async (req, res) => {
        const {name, email, phone, message} = req.body
 
     let info = await transporter.sendMail({
