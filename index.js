@@ -11,16 +11,17 @@ app.use(bodyParser.urlencoded({extended: false}));
 // parse application/json
 app.use(bodyParser.json());
 
-// app.use(cors());
+app.use(cors());
 
 //enables cors
-app.use(cors({
-    'allowedHeaders': ['sessionId', 'Content-Type'],
-    'exposedHeaders': ['sessionId'],
-    'origin': '*',
-    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    'preflightContinue': false
-}));
+app.options('*', (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.send('ok');
+});
+
+app.use((req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+});
 
 
 let smtp_login = process.env.SMPT_LOGIN || "---";
