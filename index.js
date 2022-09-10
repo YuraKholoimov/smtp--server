@@ -13,17 +13,6 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-//enables cors
-app.options('*', (req, res) => {
-    res.set('Access-Control-Allow-Origin', '*');
-    res.send('ok');
-});
-
-app.use((req, res) => {
-    res.set('Access-Control-Allow-Origin', '*');
-});
-
-
 let smtp_login = process.env.SMPT_LOGIN || "---";
 let smtp_pass = process.env.SMTP_PASS || "---";
 
